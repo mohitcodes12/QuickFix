@@ -1,177 +1,121 @@
 # 🔧 QuickFix
 
-An AI-powered code review tool that accepts code snippets in multiple 
-languages and instantly returns structured feedback on bugs, best 
-practice violations, code quality score, and refactoring suggestions 
-— powered by Google Gemini API.
+> Paste your code. Get an instant AI review.
+
+QuickFix reviews your code using Google Gemini API and tells you 
+exactly what's wrong, what could be better, and shows you a 
+cleaner version — in seconds.
 
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
-![Tech](https://img.shields.io/badge/Stack-MERN%20%2B%20Gemini-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
+![Stack](https://img.shields.io/badge/Stack-MERN%20%2B%20Gemini-blue)
 
 ---
 
-## 🚀 Live Demo
-> Coming soon — deployment in progress
+## What it does
+
+You paste a code snippet, select your language, and QuickFix gives you:
+
+- 🐛 Bugs found in your code
+- ⚠️ Best practice violations
+- 📊 A quality score out of 10
+- ✨ A cleaner, refactored version of your code
+- 📁 History of all your past reviews
 
 ---
 
-## ✨ Features
+## Built with
 
-- 🤖 AI-powered code review via Google Gemini API
-- 🌐 Supports multiple programming languages
-- 🐛 Bug detection and best practice violations
-- 📊 Code quality score out of 10
-- ✨ Refactored code suggestions
-- 🚦 Server-side rate limiting per user
-- 📁 Review history with filter by language and date
-- 📱 Fully responsive UI
+- **React + Tailwind** — frontend
+- **Node.js + Express** — backend API
+- **Google Gemini API** — AI code analysis (free tier)
+- **MongoDB** — storing review history
+- **JWT** — authentication
+- **Monaco Editor** — VS Code-like code input
 
 ---
 
-## 🛠️ Tech Stack
-
-### Frontend
-| Technology | Purpose |
-|---|---|
-| React | UI framework |
-| Tailwind CSS | Styling |
-| Monaco Editor | Code input editor (VS Code like) |
-
-### Backend
-| Technology | Purpose |
-|---|---|
-| Node.js + Express | REST API server |
-| Google Gemini API | AI code analysis |
-| MongoDB + Mongoose | Review history storage |
-| JWT + bcrypt | Authentication & security |
-| Express Rate Limit | API abuse prevention |
-
----
-
-## 📁 Project Structure
+## Project Structure
 quickfix/
+├── client/              # React app
+│   └── src/
+│       ├── components/
+│       │   ├── Editor/      # code input + language picker
+│       │   ├── Review/      # feedback + score display
+│       │   ├── History/     # past reviews
+│       │   └── Auth/        # login + register
+│       └── App.jsx
 │
-├── client/                   # React frontend
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Editor/       # Code input, language selector
-│   │   │   ├── Review/       # Feedback display, quality score
-│   │   │   ├── History/      # Past reviews, filters
-│   │   │   └── Auth/         # Login, Register
-│   │   └── App.jsx
-│
-├── server/                   # Node.js backend
-│   ├── config/               # DB connection
-│   ├── models/               # User, Review schemas
-│   ├── routes/               # Auth, Review API routes
-│   ├── controllers/          # Business logic
-│   ├── middleware/           # JWT + rate limiter
-│   └── services/
-│       └── gemini.service.js # Gemini prompt + response parsing
+└── server/              # Express backend
+├── config/          # database connection
+├── models/          # User, Review schemas
+├── routes/          # API routes
+├── controllers/     # business logic
+├── middleware/      # JWT auth + rate limiter
+└── services/
+└── gemini.service.js  # prompt engineering + response parsing
 
 ---
 
-## ⚙️ Getting Started
+## Running locally
 
-### Prerequisites
+**You'll need:**
 - Node.js v18+
-- MongoDB (local or Atlas)
-- Google Gemini API Key (free at [aistudio.google.com](https://aistudio.google.com))
-
-### Installation
+- MongoDB
+- Gemini API key → get it free at [aistudio.google.com](https://aistudio.google.com)
 
 ```bash
-# Clone the repo
 git clone https://github.com/mohitcodes12/quickfix.git
 cd quickfix
 
-# Install server dependencies
-cd server
-npm install
-
-# Install client dependencies
-cd ../client
-npm install
+cd server && npm install
+cd ../client && npm install
 ```
 
-### Environment Variables
-
-Create a `.env` file inside `/server`:
+Create a `.env` in `/server`:
 
 ```env
 PORT=3001
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-GEMINI_API_KEY=your_gemini_api_key
+MONGO_URI=your_mongo_url
+JWT_SECRET=your_secret
+GEMINI_API_KEY=your_gemini_key
 ```
-
-### Run the App
 
 ```bash
-# Start server (from /server)
-npm run dev
+# run backend
+cd server && npm run dev
 
-# Start client (from /client)
-npm run dev
+# run frontend
+cd client && npm run dev
 ```
 
-Open `http://localhost:5173` in your browser.
+App runs at `http://localhost:5173`
 
 ---
 
-## 🤖 How It Works
-User pastes code + selects language
-↓
-Frontend sends code to backend API
-↓
-Backend checks rate limit (max X requests/hour per user)
-↓
-Google Gemini API analyzes code via dynamic prompt
-↓
-Gemini returns structured JSON response:
-{
-score: 7/10,
-bugs: [...],
-bestPracticeViolations: [...],
-suggestions: [...],
-refactoredCode: "..."
-}
-↓
-Response parsed + displayed in clean UI
-↓
-Review saved to MongoDB for history
+## How the AI review works
+
+1. You paste code + pick a language
+2. Backend builds a prompt and sends it to Gemini
+3. Gemini returns structured JSON with bugs, suggestions, score
+4. Frontend parses and displays it cleanly
+5. Review gets saved to your history in MongoDB
 
 ---
 
-## 🗺️ Development Roadmap
+## Progress
 
-- [x] Project setup and folder structure
-- [ ] User authentication (Register/Login with JWT)
-- [ ] Google Gemini API integration with prompt engineering
-- [ ] Structured JSON response parsing
-- [ ] Code quality score display
-- [ ] Bug and suggestion display UI
-- [ ] Server-side rate limiting
-- [ ] Review history with MongoDB aggregation
-- [ ] Filter reviews by language and date
-- [ ] Monaco Editor integration
-- [ ] Deployment (Railway + Vercel)
+- [x] Folder structure and project setup
+- [ ] Auth system (JWT)
+- [ ] Gemini API integration + prompt engineering
+- [ ] Code quality score UI
+- [ ] Bug and suggestion display
+- [ ] Rate limiting
+- [ ] Review history + filters
+- [ ] Monaco Editor
+- [ ] Deploy on Railway + Vercel
 
 ---
 
-## 📸 Screenshots
-> Coming soon
 
----
 
-## 🤝 Connect
-
-**Mohit Kumar Verma**
-- GitHub: [@mohitcodes12](https://github.com/mohitcodes12)
-- LinkedIn: [mohit-kumar-verma](https://www.linkedin.com/in/mohit-kumar-verma-b45586267/)
-- Email: mohit.kverma12@gmail.com
-
----
-
-> ⭐ Star this repo if you find it interesting!
+Made by [Mohit Kumar Verma](https://github.com/mohitcodes12)
